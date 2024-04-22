@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://g7seyln0giwk"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_qywap"]
+[ext_resource type="PackedScene" uid="uid://dq3glyub1xxim" path="res://Mob.tscn" id="1_ysr85"]
+[ext_resource type="PackedScene" uid="uid://bsvi5j8p5mdwa" path="res://Player.tscn" id="2_bfhnj"]
+[ext_resource type="PackedScene" uid="uid://cv4t83gkvdlh" path="res://HUD.tscn" id="3_2fasb"]
+[ext_resource type="AudioStream" uid="uid://dvs7f1ivi3bpy" path="res://art/House In a Forest Loop.ogg" id="4_xxa53"]
+[ext_resource type="AudioStream" uid="uid://bn3rftr255fav" path="res://art/gameover.wav" id="5_g5abh"]
+
+[sub_resource type="Curve2D" id="Curve2D_y50ck"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 475, 2, 0, 0, 0, 0, 477, 716, 0, 0, 0, 0, 1, 719, 0, 0, 0, 0, 1, 2)
+}
+point_count = 5
+
+[node name="Main" type="Node"]
+script = ExtResource("1_qywap")
+mob_scene = ExtResource("1_ysr85")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.164706, 0.313726, 0.321569, 1)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 450)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_y50ck")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(1, 2)
+
+[node name="Player" parent="." instance=ExtResource("2_bfhnj")]
+position = Vector2(248, 439)
+
+[node name="HUD" parent="." instance=ExtResource("3_2fasb")]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xxa53")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_g5abh")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 307.0
+offset_top = 509.0
+offset_right = 315.0
+offset_bottom = 517.0
+scale = Vector2(5.16, 5.27461)
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 169.0
+offset_top = 510.0
+offset_right = 177.0
+offset_bottom = 518.0
+scale = Vector2(4.70102, 4.46182)
+
+[node name="Button3" type="Button" parent="."]
+offset_left = 239.0
+offset_top = 494.0
+offset_right = 247.0
+offset_bottom = 502.0
+scale = Vector2(3.48, 2.36)
+
+[node name="Button4" type="Button" parent="."]
+offset_left = 234.0
+offset_top = 566.0
+offset_right = 242.0
+offset_bottom = 574.0
+scale = Vector2(3.96, 2.05629)
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
+[connection signal="pressed" from="Button" to="Player" method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="Player" method="_on_button_2_pressed"]
