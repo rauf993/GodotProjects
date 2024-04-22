@@ -81,3 +81,19 @@ func _on_button_2_pressed():
 
 
 
+
+
+func _on_button_3_pressed():
+	moving_right = false
+	moving_left=false
+	moving_down=true
+	moving_up=false
+
+
+
+func _on_button_4_pressed():
+	moving_right = false
+	moving_left=false
+	moving_down=false
+	moving_up=true
+
