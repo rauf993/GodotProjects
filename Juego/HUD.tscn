@@ -40,7 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_vajrd")
 theme_override_font_sizes/font_size = 64
-text = "Esquiva a los guerreros"
+text = "Esquiva los monstruos"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -59,7 +59,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_vajrd")
 theme_override_font_sizes/font_size = 64
 shortcut = SubResource("Shortcut_5j6jd")
-text = "Start"
+text = "Inicio"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
